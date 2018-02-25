@@ -34,6 +34,11 @@ gulp.task('build', function () {
         }));
 });
 
+gulp.task('watch', ['browserSync'], function () {
+    gulp.watch(config.root + config.css.watch, ['build']);
+    gulp.watch(config.root + config.html.src, browserSync.reload);
+});
+
 gulp.task('browserSync', function () {
     browserSync.init({
         server: {
