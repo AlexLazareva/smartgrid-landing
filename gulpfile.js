@@ -18,5 +18,26 @@ const config = {
 };
 
 gulp.task('build', function () {
-    gulp.src()
+    gulp.src(config.root + config.css.src)
+        .pipe(less())
+        .pipe(gcmq())
+        .pipe(autoprefixer({
+            browsers: ['> 0.1%'],
+            cascade: false
+        }))
+        .pipe(cleanCSS({
+            level: 2
+        }))
+        .pipe(gulp.dest(config.root + config.css.dest))
+        .pipe(browserSync.reload({
+            stream: true
+        }));
+});
+
+gulp.task('browserSync', function () {
+    browserSync.init({
+        server: {
+            baseDir: config.root
+        }
+    });
 });
